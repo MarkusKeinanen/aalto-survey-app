@@ -1,0 +1,49 @@
+@import './variables.scss';
+
+input,
+select,
+textarea,
+button {
+	color: $text-color;
+	outline-width: 1px;
+	font-family: 'Nunito', Arial, Helvetica, sans-serif;
+	font-size: 14px;
+}
+
+/*----------------HTML DEFAULT OVERRIDES---------- */
+select,
+input,
+textarea {
+	padding: 7px 10px 6px 10px;
+	border-radius: 4px;
+	border: 1px solid lightgray;
+	max-width: 100%;
+	color: $text-color;
+	outline: none;
+	-webkit-transition: border-color 50ms linear;
+	-moz-transition: border-color 50ms linear;
+	-o-transition: border-color 50ms linear;
+	-ms-transition: border-color 50ms linear;
+	transition: border-color 50ms linear;
+}
+input[type='text'],
+input[type='email'],
+input[type='password'],
+textarea {
+	width: 100%;
+}
+select {
+	cursor: pointer;
+	padding: 7px 10px 6px 10px;
+	font-weight: 500;
+}
+input:focus,
+input:active {
+	border: 1px solid gray;
+}
+input.text-mode,
+input.text-mode:focus,
+input.text-mode:active {
+	border: 1px solid transparent;
+	padding-left: 0px;
+}

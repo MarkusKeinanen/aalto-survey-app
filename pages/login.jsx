@@ -1,7 +1,12 @@
 import { LandingLayout } from 'components/Landing/LandingLayout.jsx';
 import { Login } from 'components/Landing/Login';
 
-export default function Home() {
+export const defaultLoginState = {
+	email: '',
+	password: '',
+};
+
+export default function () {
 	return (
 		<LandingLayout>
 			<Login />
