@@ -1,0 +1,33 @@
+@import './variables.scss';
+
+.container {
+	height: 100vh;
+	width: 100vw;
+	overflow: hidden !important;
+}
+.page {
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	width: calc(100vw);
+	height: calc(100vh - 60px);
+	overflow-y: scroll;
+	overflow-x: hidden;
+	padding: 20px 30px 20px 30px;
+	text-align: center;
+
+	.page-content {
+		margin: auto auto;
+		max-width: 1000px;
+	}
+}
+.page-title {
+	font-size: 30px;
+	font-weight: 800;
+}
+
+.home-button {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}

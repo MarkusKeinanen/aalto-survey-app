@@ -3,10 +3,18 @@ import 'styles/inputs.scss';
 import 'styles/globals.scss';
 import 'styles/spinner.scss';
 import 'styles/landing.scss';
+import 'styles/navbar.scss';
+import 'styles/layout.scss';
+import 'styles/home.scss';
+import 'styles/modal.scss';
+import 'styles/createSurvey.scss';
+import 'styles/answerSurvey.scss';
+import 'styles/surveyList.scss';
 import { Toaster } from 'react-hot-toast';
 import { useRef, createContext, useReducer, useEffect } from 'react';
 import { defaultSignupState } from 'pages/signup';
 import { defaultLoginState } from 'pages/login';
+import { defaultSurveysState } from 'pages/surveys';
 import cloneDeep from 'lodash/cloneDeep';
 import Router from 'next/router';
 
@@ -14,6 +22,7 @@ const initialAppState = {
 	pageLoading: false,
 	signupState: defaultSignupState,
 	loginState: defaultLoginState,
+	surveysState: defaultSurveysState,
 	storage: {},
 	surveys: null,
 };
@@ -23,6 +32,12 @@ export const AppContext = createContext();
 const App = ({ Component, pageProps }) => {
 	const app = useRef(cloneDeep(initialAppState));
 	const [, forceAppStateUpdate] = useReducer((x) => x + 1, 0);
+
+	useEffect(() => {
+		let fromCache = window.localStorage.getItem('surveys');
+		app.current.surveys = fromCache ? JSON.parse(fromCache) : {};
+		forceAppStateUpdate();
+	}, []);
 
 	useEffect(() => {
 		const start = () => {

@@ -1,0 +1,41 @@
+@import './variables.scss';
+
+.survey-answer-form-top-bar {
+	width: 100vw;
+	height: 60px;
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background-color: white;
+	border-bottom: 1px solid lightgray;
+	text-align: center;
+}
+
+.survey-answer-container {
+	text-align: center;
+	.survey-title {
+		font-size: 20px;
+		font-weight: 700;
+		height: 60px;
+		line-height: 60px;
+		position: relative;
+		display: inline-block;
+		text-align: left;
+		width: 750px;
+		max-width: 100%;
+	}
+
+	.text-input-value {
+		font-size: 18px;
+		font-weight: 700;
+		border-radius: 4px;
+		max-width: 100%;
+		color: $text-color;
+		outline: none;
+		-webkit-transition: border-color 50ms linear;
+		-moz-transition: border-color 50ms linear;
+		-o-transition: border-color 50ms linear;
+		-ms-transition: border-color 50ms linear;
+		transition: border-color 50ms linear;
+	}
+}

@@ -1,0 +1,46 @@
+@import './variables.scss';
+
+.new-survey-btn,
+.new-question-placeholder {
+	border: 2px dotted rgb(197, 197, 197);
+}
+.new-question-placeholder {
+	border-radius: 7px;
+	width: 100%;
+	cursor: pointer;
+	font-weight: 500;
+	padding: 20px;
+}
+.new-survey-btn:hover {
+	border: 2px dotted gray;
+	background-color: $btn-white-hover-color;
+}
+.no-surveys-msg {
+	color: gray;
+}
+
+.survey-btn,
+.new-survey-btn {
+	width: 200px;
+	height: 200px;
+	position: relative;
+	display: inline-block;
+	background-color: white;
+	border: 2px dotted rgb(177, 177, 177);
+	padding: 20px;
+	border-radius: 10px;
+	font-weight: 500;
+	cursor: pointer;
+}
+
+.survey-btn {
+	border: 1px solid rgb(190, 190, 190);
+	margin-left: 20px;
+	padding: 10px;
+	word-break: break-word;
+	font-weight: 700;
+}
+.survey-btn:hover {
+	border: 1px solid gray;
+	background-color: $btn-white-hover-color;
+}
