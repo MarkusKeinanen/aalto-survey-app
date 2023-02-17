@@ -36,7 +36,6 @@ export const Login = () => {
 				email: loginState.email,
 				password: loginState.password,
 			},
-			noMessage: true,
 		});
 		if (res) {
 			toast.success('You have been logged in.');

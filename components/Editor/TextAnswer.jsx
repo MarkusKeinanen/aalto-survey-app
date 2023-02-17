@@ -22,10 +22,12 @@ export const TextAnswer = ({ id, index }) => {
 		<QuestionLayout survey={survey} index={index} question={question}>
 			<div className='flex-row no-wrap m-bottom-5 m-top-10'>
 				<TextArea
-					className='align-middle'
+					className={`align-middle`}
+					style={{ cursor: isEditor ? 'default' : null, opacity: isEditor ? 0.8 : 1 }}
 					readOnly={isEditor}
-					placeholder={isEditor ? 'The answer is written here' : 'Write your answer here'}
+					placeholder={isEditor ? '(Answer is written here by respondee)' : 'Write your answer here'}
 					defaultValue={null}
+					noResize={isEditor}
 					onChange={(val) => null}
 				/>
 			</div>

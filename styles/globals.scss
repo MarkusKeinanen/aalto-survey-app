@@ -21,6 +21,13 @@ a:active,
 a:hover {
 	text-decoration: underline;
 }
+a.link-blue {
+	color: $link-blue;
+}
+a.link-blue:hover,
+a.link-blue:focus {
+	color: $link-blue-darker;
+}
 
 * {
 	box-sizing: border-box;
@@ -58,7 +65,7 @@ a:hover {
 	transition: background-color 75ms linear, color 75ms linear, border-color 75ms linear;
 }
 .icon-btn {
-	padding: 5px 9px 6px 13px;
+	padding: 5px 9px 5px 13px;
 	svg {
 		margin-top: -2px;
 		margin-left: 1px;
@@ -67,16 +74,6 @@ a:hover {
 .btn:hover,
 .btn:active {
 	text-decoration: none;
-}
-.btn-blue {
-	background-color: $blue;
-}
-.btn-red {
-	background-color: $red;
-}
-.btn-red:hover,
-.btn-red:active {
-	background-color: $red-darker;
 }
 .btn-white {
 	background-color: white;
@@ -87,10 +84,6 @@ a:hover {
 .btn-white:active {
 	background-color: $btn-white-hover-color;
 }
-.btn-blue:hover,
-.btn-blue:active {
-	background-color: $blue-darker;
-}
 .close-btn {
 	font-size: 16px;
 	position: absolute;
@@ -100,6 +93,14 @@ a:hover {
 }
 .close-btn:hover {
 	color: #f75c5c;
+}
+
+.req-star {
+	color: red;
+	font-size: 18px;
+	font-weight: 700;
+	vertical-align: middle;
+	line-height: 1px;
 }
 
 .icon-gray {
@@ -141,11 +142,16 @@ a:hover {
 .p-abs {
 	position: absolute;
 }
+.center-center-container {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .center-center {
 	position: absolute;
 	left: 50%;
 	top: 50%;
-	transform: translateY(-50%) translateX(-50.1%);
+	transform: translateY(-50%) translateX(-50%);
 }
 .no-wrap {
 	white-space: nowrap;
@@ -244,7 +250,7 @@ a:hover {
 	height: 100%;
 }
 
-/*-------------------MEDIA QUERIES----------- */
+/*-------------------LOOPED STYLES----------- */
 
 $breakpoints: (
 	xs: 0,
@@ -299,5 +305,41 @@ $directions: (top, right, bottom, left);
 	}
 	100% {
 		transform: rotate(360deg);
+	}
+}
+
+$elementColors: (
+	gray: (
+		color: $gray,
+		darkercolor: $gray-darker,
+	),
+	blue: (
+		color: $blue,
+		darkercolor: $blue-darker,
+	),
+	red: (
+		color: $red,
+		darkercolor: $red-darker,
+	),
+	green: (
+		color: $green,
+		darkercolor: $green-darker,
+	),
+);
+
+@each $color-name, $colors in $elementColors {
+	$color: map-get($colors, 'color');
+	$color-darker: map-get($colors, 'darkercolor');
+
+	.btn-#{$color-name} {
+		background-color: #{$color};
+		&:hover,
+		&:focus,
+		&:active {
+			background-color: #{$color-darker};
+		}
+	}
+	.text-#{$color-name} {
+		color: #{$color};
 	}
 }

@@ -31,6 +31,7 @@ export const database = async (req, res, next) => {
 	req.db = req.dbClient.db();
 	if (!indexesCreated) {
 		await createIndexes(req.db);
+		console.log('DB initialized');
 	}
 	return next();
 };

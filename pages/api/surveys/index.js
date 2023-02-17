@@ -5,12 +5,18 @@ import { database } from 'api-lib/middleware/database';
 import { ncOpts } from 'api-lib/ncOpts';
 import nextConnect from 'next-connect';
 import normalizeEmail from 'validator/lib/normalizeEmail';
+import { findSurveysByUserId } from 'api-lib/db/survey';
 
 const app = nextConnect(ncOpts);
 
 app.use(database);
 
-app.post(validateNewUser, ...auths, async (req, res) => {
+app.get(...auths, async (req, res) => {
+	const surveys = await findSurveysByUserId(req.db, req.user._id);
+	return res.status(200).json({ surveys });
+});
+
+app.post(...auths, async (req, res) => {
 	let { email, password } = req.body;
 	email = req.body.email = normalizeEmail(req.body.email);
 	const existingEmail = await findUserByEmail(req.db, email);

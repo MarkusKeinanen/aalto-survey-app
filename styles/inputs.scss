@@ -39,11 +39,86 @@ select {
 }
 input:focus,
 input:active {
-	border: 1px solid gray;
+	border: 1px solid rgb(70, 99, 161);
 }
 input.text-mode,
 input.text-mode:focus,
 input.text-mode:active {
 	border: 1px solid transparent;
 	padding-left: 0px;
+}
+
+input[type='checkbox'],
+input[type='radio'] {
+	width: 24px;
+	height: 24px;
+	cursor: pointer;
+}
+input[type='number'] {
+	width: 200px;
+}
+
+textarea {
+	resize: vertical;
+	height: 100px;
+	min-height: 35px;
+}
+textarea.no-resize {
+	resize: none;
+}
+
+.star-input {
+	cursor: pointer;
+	padding: 3px 3px 0px 3px;
+	svg {
+		color: transparent;
+		stroke: #8b8b8b;
+		stroke-width: 1px;
+		stroke-linejoin: round;
+		-webkit-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+		-moz-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+		-o-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+		-ms-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+		transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+	}
+}
+.star-input.has-color {
+	svg {
+		color: rgb(247, 239, 82);
+	}
+}
+.range-input-option {
+	width: 35px;
+	height: 35px;
+	border: 1px solid lightgray;
+	border-radius: 4px;
+	margin-right: 3px;
+	cursor: pointer;
+	-webkit-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+	-moz-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+	-o-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+	-ms-transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+	transition: background-color 25ms linear, color 25ms linear, border-color 25ms linear;
+}
+.range-input-option.has-color {
+	cursor: default;
+	background-color: rgb(69, 112, 206);
+	color: white;
+}
+.range-input-option:not(.has-color):hover {
+	background-color: rgb(223, 234, 255);
+}
+
+.validation-error,
+.validation-error:focus,
+.validation-error:active {
+	border: 1px solid rgb(209, 20, 20) !important;
+	color: rgb(168, 15, 15) !important;
+}
+
+.validation-success,
+.validation-success:focus,
+.validation-success:active {
+	border: 1px solid rgb(6, 102, 6) !important;
+	color: rgb(6, 102, 6) !important;
 }

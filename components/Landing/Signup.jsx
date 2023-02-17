@@ -49,9 +49,9 @@ export const Signup = () => {
 			},
 		});
 		if (res) {
-			toast.success('Your account has been created');
+			toast.success('Your account has been created and you were logged in.');
+			router.push('/surveys');
 		}
-		setIsLoading(false);
 	};
 
 	return (

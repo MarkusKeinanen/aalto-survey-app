@@ -10,8 +10,8 @@ export const Modal = ({ title, body, footer, style, onClose }) => {
 	}, []);
 
 	return (
-		<div className={`modal-container ${visible ? 'opacity-1' : 'opacity-0'}`}>
-			<div className='modal shadow-sm center-center' style={{ ...(style ? style : {}) }}>
+		<div className={`modal-container center-center-container ${visible ? 'opacity-1' : 'opacity-0'}`}>
+			<div className='modal shadow-sm' style={{ ...(style ? style : {}) }}>
 				<div className='close-btn animate-colors-75-ms' onClick={onClose}>
 					<Icon path={mdiClose} size={1.4} />
 				</div>

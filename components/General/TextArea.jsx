@@ -2,7 +2,7 @@ import { altIfUndefined } from 'lib/utils';
 import React from 'react';
 
 export const TextArea = React.forwardRef((props, ref) => {
-	let { defaultValue, name, placeholder, readOnly, onKeyDown, className, onChange, title, style } = props;
+	let { defaultValue, name, placeholder, readOnly, onKeyDown, className, onChange, title, style, noResize } = props;
 
 	if (readOnly === undefined) readOnly = false;
 
@@ -10,7 +10,7 @@ export const TextArea = React.forwardRef((props, ref) => {
 		<textarea
 			ref={ref}
 			onKeyDown={onKeyDown}
-			className={`${className ? className : ''}`}
+			className={`${className ? className : ''} ${noResize ? 'no-resize' : ''}`}
 			readOnly={readOnly}
 			defaultValue={defaultValue}
 			name={name}

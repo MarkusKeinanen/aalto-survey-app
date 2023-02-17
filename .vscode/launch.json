@@ -5,25 +5,29 @@
 			"name": "Next.js: debug server-side",
 			"type": "node-terminal",
 			"request": "launch",
-			"command": "npm run dev"
+			"command": "npm run dev",
+			"localRoot": "${workspaceFolder}",
+			"webRoot": "${workspaceFolder}"
 		},
 		{
 			"name": "Next.js: debug client-side",
-			"type": "pwa-chrome",
+			"type": "chrome",
 			"request": "launch",
-			"url": "http://localhost:3000"
+			"url": "http://localhost:3000",
+			"webRoot": "${workspaceFolder}"
 		},
 		{
 			"name": "Next.js: debug full stack",
 			"type": "node-terminal",
 			"request": "launch",
 			"command": "npm run dev",
-			"console": "integratedTerminal",
 			"serverReadyAction": {
 				"pattern": "started server on .+, url: (https?://.+)",
 				"uriFormat": "%s",
 				"action": "debugWithChrome"
-			}
+			},
+			"localRoot": "${workspaceFolder}",
+			"webRoot": "${workspaceFolder}"
 		}
 	]
 }

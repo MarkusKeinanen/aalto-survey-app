@@ -3,18 +3,26 @@ import { Modal } from 'components/General/Modal';
 import { TextInput } from 'components/General/TextInput';
 import { AppContext } from 'pages/_app';
 import { useRouter } from 'next/router';
-import { getId, getRandomPastelColor, isEmpty } from 'lib/utils';
+import { getId, getRandomPastelColor, isEmpty, validateMinLength } from 'lib/utils';
 import toast from 'react-hot-toast';
+import { useOnMount } from 'hooks/useOnMount';
 
 export const NewSurveyModal = ({ onClose }) => {
 	const { app, forceRender } = useContext(AppContext);
 	const state = app.surveysState;
 	const ref = useRef();
 	const router = useRouter();
+	const allowValidation = useRef(false);
 
 	const createNewSurvey = () => {
-		if (isEmpty(state.newSurveyName)) {
-			toast.error('The survey name must not be empty');
+		allowValidation.current = true;
+		if (
+			!validateMinLength({
+				value: state.newSurveyName,
+				minLength: 3,
+			})
+		) {
+			forceRender();
 			return;
 		}
 		let newId = getId();
@@ -26,9 +34,13 @@ export const NewSurveyModal = ({ onClose }) => {
 			backgroundColor: getRandomPastelColor(),
 		};
 		onClose();
-		state.newSurveyName = '';
+		state.newSurveyName = null;
 		router.push(`/surveys/editor/${newId}`);
 	};
+
+	useOnMount(() => {
+		ref.current?.focus();
+	});
 
 	return (
 		<Modal
@@ -37,10 +49,22 @@ export const NewSurveyModal = ({ onClose }) => {
 			title='Create new survey'
 			body={
 				<>
-					<div className='m-bottom-3 m-left-2 font-weight-500'>Name of the survey</div>
+					<div className='m-bottom-3 m-left-2 font-weight-500'>
+						Name of the survey <span className='req-star'>*</span>
+					</div>
 					<TextInput
 						ref={ref}
 						defaultValue={state.newSurveyName}
+						validate={(val) =>
+							validateMinLength({
+								value: val,
+								minLength: 3,
+								allowValidation: allowValidation.current,
+							})
+						}
+						validationMsg={(bool) => {
+							return bool === true ? 'This value is OK' : 'The name must be 3 or more characters long';
+						}}
 						onChange={(val) => {
 							state.newSurveyName = val;
 						}}

@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { Spinner } from 'components/General/Spinner';
 import { TextInput } from 'components/General/TextInput';
 import { AppContext } from 'pages/_app';
-import { Navbar } from '../Navbar/Navbar';
+import { Navbar } from 'components/Navbar/Navbar';
 
 export default function Layout({ children }) {
 	const { app } = useContext(AppContext);

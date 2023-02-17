@@ -19,11 +19,12 @@ export const DeleteSurveyModal = ({ onClose }) => {
 	const deleteSurvey = () => {
 		let surveys = window.localStorage.getItem('surveys');
 		surveys = surveys ? JSON.parse(surveys) : {};
+		let name = surveys[surveyid]?.name;
 		delete surveys[surveyid];
 		delete app.surveys[surveyid];
 		window.localStorage.setItem('surveys', JSON.stringify(surveys));
 		onClose();
-		toast.success('The survey has been deleted');
+		toast.success(`The survey "${name}" has been deleted`);
 		forceRender();
 		router.push('/surveys');
 	};

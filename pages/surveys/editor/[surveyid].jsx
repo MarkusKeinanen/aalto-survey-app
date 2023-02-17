@@ -1,6 +1,6 @@
 import { NewQuestion } from 'components/Editor/NewQuestion';
 import Layout from 'components/General/Layout';
-import { mdiEyeOutline, mdiPlus, mdiContentSaveOutline, mdiTrashCanOutline, mdiPencilOutline } from '@mdi/js';
+import { mdiEyeOutline, mdiPlus, mdiContentSaveOutline, mdiTrashCanOutline, mdiPencilOutline, mdiChevronLeft } from '@mdi/js';
 import Icon from '@mdi/react';
 import { mdiApplicationExport } from '@mdi/js';
 import { mdiArchiveOutline } from '@mdi/js';
@@ -10,7 +10,7 @@ import { AppContext } from 'pages/_app';
 import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import toast from 'react-hot-toast';
-import { DeleteSurveyModal } from './DeleteSurveyModal';
+import { DeleteSurveyModal } from 'components/Editor/DeleteSurveyModal';
 
 export default function Editor() {
 	const { app, forceRender } = useContext(AppContext);
@@ -30,6 +30,20 @@ export default function Editor() {
 	return (
 		<Layout>
 			{showDeleteModal && <DeleteSurveyModal onClose={() => setShowDeleteModal(false)} />}
+			<div className='margin-auto text-left' style={{ width: '750px', maxWidth: '100%' }}>
+				<button
+					className='btn btn-white'
+					style={{ paddingLeft: '4px' }}
+					onClick={() => {
+						router.push(`/surveys`);
+					}}
+				>
+					<Icon className='align-middle' path={mdiChevronLeft} size={1} />{' '}
+					<span className='align-middle' style={{ marginLeft: '-3px' }}>
+						Back to surveys
+					</span>
+				</button>
+			</div>
 
 			<div className='page-title m-top-20'>
 				{survey?.isNew ? 'Create new survey' : 'Edit survey'} <Icon className='align-middle m-bottom-3' path={mdiPencilOutline} size={1.5} />
