@@ -6,7 +6,7 @@ import { mdiNumeric, mdiArrowLeftRight } from '@mdi/js';
 import { QUESTION_TYPE } from 'lib/enums';
 import { AppContext } from 'pages/_app';
 import { useRouter } from 'next/router';
-import { getId } from 'lib/utils';
+import { getId, getLatestOrderId } from 'lib/utils';
 
 const questionTypes = [
 	{
@@ -67,51 +67,50 @@ export const NewQuestion = (props) => {
 									e.preventDefault();
 									e.stopPropagation();
 									let newQuestionId = getId();
-									let highestOrderId = Math.max(Object.entries(survey.questions).map(([key, value]) => value.orderId));
 									let newQuestion = {
-										id: newQuestionId,
+										_id: newQuestionId,
 										text: '',
 										type: question.type,
-										orderId: highestOrderId + 1,
+										orderId: getLatestOrderId(survey.questions) + 1,
 									};
 									if (question.type == QUESTION_TYPE.SINGLE_CHOICE) {
 										newQuestion.options = [
 											{
-												id: getId(),
-												text: 'Answer option 1',
+												_id: getId(),
+												text: '',
 												orderId: 1,
 											},
 											{
-												id: getId(),
-												text: 'Answer option 2',
+												_id: getId(),
+												text: '',
 												orderId: 2,
 											},
 											{
-												id: getId(),
-												text: 'Answer option 3',
+												_id: getId(),
+												text: '',
 												orderId: 3,
 											},
 										];
 									} else if (question.type == QUESTION_TYPE.MULTIPLE_CHOICE) {
 										newQuestion.options = [
 											{
-												id: getId(),
-												text: 'Answer option 1',
+												_id: getId(),
+												text: '',
 												orderId: 1,
 											},
 											{
-												id: getId(),
-												text: 'Answer option 2',
+												_id: getId(),
+												text: '',
 												orderId: 2,
 											},
 											{
-												id: getId(),
-												text: 'Answer option 3',
+												_id: getId(),
+												text: '',
 												orderId: 3,
 											},
 											{
-												id: getId(),
-												text: 'Answer option 4',
+												_id: getId(),
+												text: '',
 												orderId: 4,
 											},
 										];

@@ -32,7 +32,7 @@ export const QuestionLayout = ({ survey, index, question, children }) => {
 						path={mdiTrashCanOutline}
 						size={1.0}
 						onClick={() => {
-							delete survey.questions[question.id.toString()];
+							delete survey.questions[question._id.toString()];
 							forceRender();
 						}}
 					/>

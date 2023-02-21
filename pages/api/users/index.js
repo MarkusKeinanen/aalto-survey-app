@@ -15,7 +15,7 @@ app.post(validateNewUser, ...auths, async (req, res) => {
 	email = req.body.email = normalizeEmail(req.body.email);
 	const existingEmail = await findUserByEmail(req.db, email);
 	if (existingEmail) {
-		res.status(422).json({ error: { message: 'There is already an account with this email address.' } });
+		res.status(200).json({ error: { message: 'There is already an account with this email address.' } });
 		return;
 	}
 	const user = await insertUser(req.db, {

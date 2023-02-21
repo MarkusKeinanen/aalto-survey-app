@@ -31,15 +31,16 @@ export const SurveyList = () => {
 					You do not have any surveys yet.<br></br>Created surveys will show up here.<br></br>Press "new survey" to get started!
 				</div>
 			) : (
-				Object.keys(app.surveys).map((id) => {
-					const survey = app.surveys[id];
+				Object.keys(app.surveys).map((_id) => {
+					const survey = app.surveys[_id];
+					console.log(survey);
 					return (
 						<div
-							key={survey.id}
+							key={survey._id}
 							style={{ backgroundColor: survey.backgroundColor }}
 							className='survey-btn animate-colors-75-ms align-middle shadow-xs'
 							onClick={() => {
-								router.push(`/surveys/editor/${survey.id}`);
+								router.push(`/surveys/editor/${survey._id}`);
 							}}
 						>
 							<div className='center-center'>

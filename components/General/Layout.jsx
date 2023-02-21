@@ -17,7 +17,7 @@ export default function Layout({ children }) {
 	return (
 		<div className='container'>
 			<Navbar />
-			<div className='page'>
+			<div className='page' id='page'>
 				<div>{app.pageLoading || !app.surveys ? <Spinner className={`center-center`} /> : children}</div>
 			</div>
 		</div>

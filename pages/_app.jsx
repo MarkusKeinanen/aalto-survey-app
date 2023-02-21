@@ -17,6 +17,7 @@ import { defaultLoginState } from 'pages/login';
 import { defaultSurveysState } from 'pages/surveys';
 import cloneDeep from 'lodash/cloneDeep';
 import Router from 'next/router';
+import { useScreenSize } from 'hooks/useScreenSize';
 
 const initialAppState = {
 	pageLoading: false,
@@ -33,11 +34,7 @@ const App = ({ Component, pageProps }) => {
 	const app = useRef(cloneDeep(initialAppState));
 	const [, forceAppStateUpdate] = useReducer((x) => x + 1, 0);
 
-	useEffect(() => {
-		let fromCache = window.localStorage.getItem('surveys');
-		app.current.surveys = fromCache ? JSON.parse(fromCache) : {};
-		forceAppStateUpdate();
-	}, []);
+	useScreenSize({ app, forceRender: forceAppStateUpdate });
 
 	useEffect(() => {
 		const start = () => {

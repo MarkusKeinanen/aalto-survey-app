@@ -1,4 +1,4 @@
-import { useContext, useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { Modal } from 'components/General/Modal';
 import { TextInput } from 'components/General/TextInput';
 import { AppContext } from 'pages/_app';
@@ -8,25 +8,38 @@ import { mdiTrashCanOutline } from '@mdi/js';
 import Icon from '@mdi/react';
 const nanoid = customAlphabet('1234567890abcdef', 5);
 import toast from 'react-hot-toast';
+import { deleteSurvey } from 'lib/surveysApi';
+import { Spinner } from 'components/General/Spinner';
+import { isNew, sleep } from 'lib/utils';
 
 export const DeleteSurveyModal = ({ onClose }) => {
 	const { app, forceRender } = useContext(AppContext);
+	const [deleting, setDeleting] = useState(false);
 	const state = app.surveysState;
 	const ref = useRef();
 	const router = useRouter();
 	const { surveyid } = router.query;
+	let survey = app.surveys ? app.surveys[surveyid] : null;
 
-	const deleteSurvey = () => {
-		let surveys = window.localStorage.getItem('surveys');
-		surveys = surveys ? JSON.parse(surveys) : {};
-		let name = surveys[surveyid]?.name;
-		delete surveys[surveyid];
-		delete app.surveys[surveyid];
-		window.localStorage.setItem('surveys', JSON.stringify(surveys));
-		onClose();
-		toast.success(`The survey "${name}" has been deleted`);
-		forceRender();
-		router.push('/surveys');
+	const onDeleteSurvey = async () => {
+		const surveyName = survey.name;
+		if (isNew(survey)) {
+			setDeleting(true);
+			delete app.surveys[surveyid];
+			await sleep(200);
+			forceRender();
+			toast.success(`Survey "${surveyName}" was deleted.`);
+			router.push('/surveys');
+		} else {
+			let res = await deleteSurvey(survey);
+			if (res) {
+				delete app.surveys[surveyid];
+				forceRender();
+				toast.success(`Survey "${surveyName}" was deleted.`);
+				router.push('/surveys');
+			}
+		}
+		setDeleting(false);
 	};
 
 	return (
@@ -36,12 +49,16 @@ export const DeleteSurveyModal = ({ onClose }) => {
 			title='Delete survey'
 			body={
 				<>
-					<div className='m-bottom-3 m-left-2 font-weight-500'>Are you sure you want to delete this survey? This action is irreversible.</div>
+					{deleting ? (
+						<Spinner text='Deleting survey...' />
+					) : (
+						<div className='m-bottom-3 m-left-2 font-weight-500'>Are you sure you want to delete this survey? This action is irreversible.</div>
+					)}
 				</>
 			}
 			footer={
 				<>
-					<button onClick={deleteSurvey} className='btn btn-red icon-btn m-left-5'>
+					<button onClick={onDeleteSurvey} className='btn btn-red icon-btn m-left-5'>
 						Yes, delete <Icon className='align-middle' path={mdiTrashCanOutline} size={0.9} />
 					</button>
 				</>

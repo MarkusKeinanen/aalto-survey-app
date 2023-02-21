@@ -1,18 +1,28 @@
-import Layout from 'components/General/Layout';
-import { mdiEyeOutline, mdiPlus, mdiContentSaveOutline, mdiTrashCanOutline, mdiPencilOutline, mdiClose } from '@mdi/js';
+import { mdiClose } from '@mdi/js';
 import Icon from '@mdi/react';
-import { TextInput } from 'components/General/TextInput';
 import { QUESTION_ELEMENT } from 'lib/enums';
-import { AppContext } from 'pages/_app';
-import { useContext, useState } from 'react';
-import { useRouter } from 'next/router';
 import { Spinner } from 'components/General/Spinner';
+import { useContext, useState } from 'react';
+import { useOnMount } from 'hooks/useOnMount';
+import { AppContext } from 'pages/_app';
+import { useRouter } from 'next/router';
 
 export default function Preview() {
 	const { app, forceRender } = useContext(AppContext);
-	const [showDeleteModal, setShowDeleteModal] = useState(false);
 	const router = useRouter();
 	const { surveyid } = router.query;
+
+	useOnMount(() => {
+		let storedSurvey = localStorage.getItem('preview-survey');
+		if (storedSurvey) {
+			storedSurvey = JSON.parse(storedSurvey);
+			app.surveys = {
+				[storedSurvey._id]: storedSurvey,
+			};
+			forceRender();
+		}
+	});
+
 	let survey = app.surveys ? app.surveys[surveyid] : null;
 
 	return (
@@ -21,7 +31,7 @@ export default function Preview() {
 				<div className='survey-answer-form-top-bar'>
 					<div className='survey-title'>{survey?.name}</div>
 				</div>
-				{app.pageLoading || !app.surveys ? (
+				{!survey ? (
 					<Spinner className={`center-center`} />
 				) : (
 					<>
@@ -39,8 +49,8 @@ export default function Preview() {
 												return questions.map((question, i) => {
 													let Element = QUESTION_ELEMENT[question.type];
 													return (
-														<div key={question.id} className={`${i == 0 ? 'm-top-0' : 'm-top-20'} m-bottom-30`}>
-															<Element id={question.id} index={i + 1} />
+														<div key={question._id} className={`${i == 0 ? 'm-top-0' : 'm-top-20'} m-bottom-30`}>
+															<Element id={question._id} index={i + 1} />
 														</div>
 													);
 												});

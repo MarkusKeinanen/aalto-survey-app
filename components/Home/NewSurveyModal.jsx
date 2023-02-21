@@ -27,8 +27,7 @@ export const NewSurveyModal = ({ onClose }) => {
 		}
 		let newId = getId();
 		app.surveys[newId] = {
-			id: newId,
-			isNew: true,
+			_id: newId,
 			name: state.newSurveyName,
 			questions: {},
 			backgroundColor: getRandomPastelColor(),

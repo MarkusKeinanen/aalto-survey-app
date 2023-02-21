@@ -64,7 +64,9 @@
 		}
 	}
 	.search-bar {
-		margin-left: 200px;
+		position: absolute;
+		left: 50%;
+		transform: translateX(-50%);
 		display: inline-block;
 	}
 }

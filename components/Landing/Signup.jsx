@@ -49,9 +49,20 @@ export const Signup = () => {
 			},
 		});
 		if (res) {
-			toast.success('Your account has been created and you were logged in.');
-			router.push('/surveys');
+			const res2 = await request({
+				url: '/api/auth',
+				method: 'POST',
+				body: {
+					email: signupState.email,
+					password: signupState.password,
+				},
+			});
+			if (res2) {
+				toast.success('Your account has been created and you were logged in.');
+				router.push('/surveys');
+			}
 		}
+		setIsLoading(false);
 	};
 
 	return (

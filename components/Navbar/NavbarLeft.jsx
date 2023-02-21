@@ -4,17 +4,15 @@ import { useRouter } from 'next/router';
 import { AppContext } from 'pages/_app';
 import { useContext } from 'react';
 
-export const Breadcrumb = () => {
+export const NavbarLeft = () => {
 	const { app, forceRender } = useContext(AppContext);
 	const router = useRouter();
 	const { surveyid } = router.query;
 	let survey = app.surveys ? app.surveys[surveyid] : null;
 
-	let urlArray = stripStartAndEndSlashes(router.pathname).split('/');
-
 	return (
-		<div className='breadcrumb'>
-			<b className='text-lightgray'>/</b>
+		<div className='nav-left'>
+			{/* <b className='text-lightgray'>/</b>
 			<Link href='/surveys'>
 				<a className={`link-blue ${urlArray.length == 1 ? 'current' : ''}`}>My surveys</a>
 			</Link>
@@ -25,7 +23,7 @@ export const Breadcrumb = () => {
 						<a className={`link-blue ${urlArray.length == 3 ? 'current' : ''}`}>{survey?.name}</a>
 					</Link>
 				</>
-			)}
+			)} */}
 		</div>
 	);
 };

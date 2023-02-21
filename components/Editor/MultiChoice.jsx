@@ -24,14 +24,14 @@ export const MultiChoice = ({ id, index }) => {
 	return (
 		<QuestionLayout survey={survey} index={index} question={question}>
 			<div className='m-top-10 font-size-12'>Choose one or more answers</div>
-			{question.options.map((opt) => {
+			{question.options.map((opt, i) => {
 				return (
-					<div key={opt.orderId} className='flex-row no-wrap m-bottom-5 m-top-10'>
-						<CheckboxInput name={question.id.toString()} className='align-middle m-right-7 m-top-6' />
+					<div key={i + '' + opt.orderId} className='flex-row no-wrap m-bottom-5 m-top-10'>
+						<CheckboxInput name={question._id.toString()} className='align-middle m-right-7 m-top-6' />
 						<TextInput
 							readOnly={!isEditor}
 							className={`align-middle ${isEditor ? '' : 'text-mode'}`}
-							palceholder='Enter question'
+							palceholder={`Answer option ${i + 1}`}
 							defaultValue={opt.text}
 							onChange={(val) => (opt.text = val)}
 						/>
@@ -42,7 +42,7 @@ export const MultiChoice = ({ id, index }) => {
 								size={1.0}
 								onClick={() => {
 									question.options = question.options.filter((o) => {
-										return o.id != opt.id;
+										return o._id != opt._id;
 									});
 									forceRender();
 								}}

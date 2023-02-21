@@ -7,9 +7,14 @@ export const useAppStorage = (requiredFields) => {
 	const { app, forceRender } = useContext(AppContext);
 
 	const fetchFn = async (key) => {
-		if (key === 'Surveys') {
+		if (key === 'surveys' && !app[key]) {
 			const res = await fetchSurveys();
-			if (res) app.Surveys = res;
+			if (res && res.surveys) {
+				app.surveys = {};
+				for (const survey of res.surveys) {
+					app.surveys[survey._id] = survey;
+				}
+			}
 		}
 	};
 

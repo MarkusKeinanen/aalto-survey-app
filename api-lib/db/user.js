@@ -20,7 +20,6 @@ export const findUserByEmail = async (db, email) => {
 export const findUserByEmailAndPassword = async (db, email, password) => {
 	email = normalizeEmail(email);
 	const user = await db.collection('users').findOne({ email });
-	console.log(user);
 	if (!user) {
 		return null;
 	}

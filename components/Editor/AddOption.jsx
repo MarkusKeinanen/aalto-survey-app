@@ -1,16 +1,21 @@
 import { mdiPlus } from '@mdi/js';
 import Icon from '@mdi/react';
+import { getId, getLatestOrderId } from 'lib/utils';
+import { AppContext } from 'pages/_app';
+import { useContext } from 'react';
 
 export const AddOption = ({ question }) => {
+	const { app, forceRender } = useContext(AppContext);
+
 	return (
 		<div className='d-in-bl m-top-10' style={{ marginLeft: '33px' }}>
 			<button
 				className='btn btn-white shadow-xs icon-btn m-right-5'
 				onClick={() => {
 					question.options.push({
-						id: getId(),
-						text: 'New option',
-						orderId: question.options.length,
+						_id: getId(),
+						text: '',
+						orderId: getLatestOrderId(question.options) + 1,
 					});
 					forceRender();
 				}}

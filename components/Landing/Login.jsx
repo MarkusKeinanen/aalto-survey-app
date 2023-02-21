@@ -42,6 +42,7 @@ export const Login = () => {
 		} else {
 			toast.error('Wrong email or password.');
 		}
+		router.push('/surveys');
 		setIsLoading(false);
 	};
 
