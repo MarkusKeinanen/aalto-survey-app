@@ -1,6 +1,11 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { ObjectId } from 'mongodb';
 
+export const findSurveyById = async (db, _id) => {
+	const res = await db.collection('surveys').findOne({ _id: ObjectId(_id) });
+	return res;
+};
+
 export const findSurveysByUserId = async (db, user_id) => {
 	const res = await db
 		.collection('surveys')

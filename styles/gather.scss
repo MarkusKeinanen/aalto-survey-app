@@ -1,0 +1,9 @@
+@import './variables.scss';
+
+.survey-link-container {
+	display: inline-block;
+	padding: 15px 17px 15px 25px;
+	border-radius: 10px;
+	background-color: rgba(220, 229, 255, 0.5);
+	border: 1px solid $lightgray;
+}

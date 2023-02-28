@@ -21,7 +21,7 @@ export const Breadcrumb = () => {
 			{urlArray.length > 1 && (
 				<>
 					<b className='text-lightgray'>/</b>
-					<Link href={`/surveys/editor/${surveyid}`}>
+					<Link href={`/surveys/${surveyid}/editor`}>
 						<a className={`link-blue ${urlArray.length == 3 ? 'current' : ''}`}>{survey?.name}</a>
 					</Link>
 				</>

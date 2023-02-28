@@ -34,7 +34,7 @@ export const NewSurveyModal = ({ onClose }) => {
 		};
 		onClose();
 		state.newSurveyName = null;
-		router.push(`/surveys/editor/${newId}`);
+		router.push(`/surveys/${newId}/editor`);
 	};
 
 	useOnMount(() => {

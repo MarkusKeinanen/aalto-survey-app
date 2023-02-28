@@ -24,6 +24,7 @@ export const Navbar = () => {
 			</Link>
 			<Breadcrumb />
 			{urlArray.length == 1 && <SearchBar />}
+
 			<div className='btn btn-blue profile-circle'>
 				<div className='center-center' style={{ marginTop: '-1px' }}>
 					MK

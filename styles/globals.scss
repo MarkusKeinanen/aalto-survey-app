@@ -42,7 +42,9 @@ a.link-blue:focus {
 
 .card {
 	border: 1px solid lightgray;
+	background-color: white;
 	border-radius: 5px;
+	padding: 11px 16px 12px 16px;
 }
 
 .btn {
@@ -242,6 +244,9 @@ a.link-blue:focus {
 .divider {
 	border-top: 1px solid $lightgray;
 	width: 100%;
+}
+.border-bottom-light {
+	border-bottom: 1px solid $lightgray;
 }
 .w-100 {
 	width: 100%;

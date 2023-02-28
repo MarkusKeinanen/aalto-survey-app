@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react';
-import { mdiPlus } from '@mdi/js';
+import { mdiCancel, mdiPlus } from '@mdi/js';
 import Icon from '@mdi/react';
 import { mdiCheckboxOutline, mdiCheckboxMultipleOutline, mdiCommentTextMultipleOutline, mdiStarOutline } from '@mdi/js';
 import { mdiNumeric, mdiArrowLeftRight } from '@mdi/js';
@@ -53,7 +53,9 @@ export const NewQuestion = (props) => {
 		<div
 			className={`new-question-placeholder animate-colors-75-ms m-top-10 ${showOptions ? 'with-options' : ''}`}
 			onClick={() => {
-				setShowOptions(true);
+				if (!showOptions) {
+					setShowOptions(true);
+				}
 			}}
 		>
 			{showOptions ? (
@@ -135,6 +137,18 @@ export const NewQuestion = (props) => {
 							</div>
 						);
 					})}
+					<div
+						className='p-rel new-question-option btn btn-white align-top'
+						style={{ width: '100px' }}
+						onClick={() => {
+							setShowOptions(false);
+						}}
+					>
+						<div className='center-center'>
+							<Icon path={mdiCancel} size={1.3} />
+							<div className='new-question-name'>Cancel</div>
+						</div>
+					</div>
 				</>
 			) : (
 				<div className='center-center'>

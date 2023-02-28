@@ -6,6 +6,7 @@ import { useContext, useState } from 'react';
 import { useOnMount } from 'hooks/useOnMount';
 import { AppContext } from 'pages/_app';
 import { useRouter } from 'next/router';
+import landingBackgroundSVG from 'svgJSX/landingBackground';
 
 export default function Preview() {
 	const { app, forceRender } = useContext(AppContext);
@@ -36,8 +37,9 @@ export default function Preview() {
 				) : (
 					<>
 						<div className='page'>
+							<div className='landing-background-svg'>{landingBackgroundSVG}</div>
 							<div className='text-center'>
-								<div className='survey-form m-top-20 shadow-sm'>
+								<div className='survey-form respond-form m-top-20 shadow-sm'>
 									{!survey || Object.keys(survey.questions).length == 0
 										? null
 										: (function () {

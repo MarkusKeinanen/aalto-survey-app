@@ -41,16 +41,17 @@
 			top: 20vh;
 		}
 	}
-	.landing-background-svg {
-		opacity: 0.25;
-		position: absolute;
-		top: 80px;
-		width: 100%;
+}
+
+.landing-background-svg {
+	opacity: 0.25;
+	position: absolute;
+	top: 80px;
+	width: 100%;
+	height: 100%;
+	max-height: calc(100% - 80px);
+	text-align: center;
+	svg {
 		height: 100%;
-		max-height: calc(100% - 80px);
-		text-align: center;
-		svg {
-			height: 100%;
-		}
 	}
 }

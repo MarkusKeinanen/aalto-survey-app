@@ -45,7 +45,7 @@ input.text-mode,
 input.text-mode:focus,
 input.text-mode:active {
 	border: 1px solid transparent;
-	padding-left: 0px;
+	padding-left: 1px;
 }
 
 input[type='checkbox'],
@@ -121,4 +121,68 @@ textarea.no-resize {
 .validation-success:active {
 	border: 1px solid rgb(6, 102, 6) !important;
 	color: rgb(6, 102, 6) !important;
+}
+
+///switch toggle
+.toggle {
+	display: none;
+	&,
+	&:after,
+	&:before,
+	& *,
+	& *:after,
+	& *:before,
+	& + .toggle-btn {
+		box-sizing: border-box;
+		&::selection {
+			background: none;
+		}
+	}
+	+ .toggle-btn {
+		outline: 0;
+		display: block;
+		width: 90px;
+		height: 40px;
+		position: relative;
+		cursor: pointer;
+		user-select: none;
+		&:after,
+		&:before {
+			position: relative;
+			display: block;
+			content: '';
+			width: 50%;
+			height: 100%;
+		}
+		&:after {
+			left: 0;
+		}
+		&:before {
+			display: none;
+		}
+	}
+	&:checked + .toggle-btn:after {
+		left: calc(50% + 8px);
+	}
+	+ .toggle-btn {
+		display: inline-block;
+		vertical-align: middle;
+		background: #f0f0f0;
+		border: 1px solid lightgray;
+		border-radius: 20px;
+		padding: 3px;
+		transition: all 0.4s ease;
+		&:after {
+			border-radius: 100%;
+			border: 1px solid lightgray;
+			width: 30px;
+			height: 30px;
+			background: #fff;
+			transition: all 0.2s ease;
+		}
+	}
+
+	&:checked + .toggle-btn {
+		background: $blue;
+	}
 }

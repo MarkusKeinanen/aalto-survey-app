@@ -9,6 +9,7 @@
 	background-color: white;
 	border-bottom: 1px solid lightgray;
 	text-align: left;
+	z-index: 1;
 
 	.brand {
 		display: inline-block;
@@ -68,5 +69,55 @@
 		left: 50%;
 		transform: translateX(-50%);
 		display: inline-block;
+	}
+}
+
+.navbar-left {
+	width: 250px;
+	height: calc(100vh - 60px);
+	position: absolute;
+	left: 0px;
+	top: 60px;
+	background-color: white;
+	border-right: 1px solid lightgray;
+	text-align: left;
+}
+
+.editor-navbar-left-content {
+	.nav-item {
+		cursor: pointer;
+		padding: 12px 20px 12px 25px;
+	}
+	.nav-item:hover,
+	.nav-item.selected {
+		color: black;
+		div {
+			font-weight: 600;
+		}
+	}
+
+	.nav-item:hover {
+		background: rgba(245, 245, 245, 1);
+		div {
+			text-decoration: underline;
+		}
+	}
+	.nav-item.selected,
+	.nav-item.selected:hover {
+		background: rgb(236, 239, 245);
+		div {
+			font-weight: 700;
+		}
+	}
+
+	.title {
+		font-weight: 700;
+		font-size: 14px;
+		margin-top: 25px;
+		margin-left: 20px;
+	}
+	ul {
+		margin-top: 0px;
+		margin-left: 5px;
 	}
 }
