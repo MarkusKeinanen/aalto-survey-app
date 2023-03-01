@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AddOption } from './AddOption';
 import { QuestionLayout } from './QuestionLayout';
+import { addResponseValue, getId } from 'lib/utils';
 
 export const RangeAnswer = ({ id, index }) => {
 	const { app, forceRender } = useContext(AppContext);
@@ -27,6 +28,12 @@ export const RangeAnswer = ({ id, index }) => {
 							className={`d-in-bl align-middle range-input-option p-rel ${num == selected ? 'has-color' : ''}`}
 							onClick={() => {
 								setSelected(num);
+								addResponseValue({
+									survey,
+									value: num,
+									question,
+									option: null,
+								});
 							}}
 							key={'option' + num}
 						>

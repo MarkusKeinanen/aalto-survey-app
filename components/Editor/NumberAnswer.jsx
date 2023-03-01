@@ -5,7 +5,7 @@ import { TextInput } from 'components/General/TextInput';
 import { AppContext } from 'pages/_app';
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import { getId, pageIsEditor, pageIsPreview } from 'lib/utils';
+import { addResponseValue, getId, pageIsEditor, pageIsPreview } from 'lib/utils';
 import { TextArea } from 'components/General/TextArea';
 import { AddOption } from './AddOption';
 import { QuestionLayout } from './QuestionLayout';
@@ -22,7 +22,18 @@ export const NumberAnswer = ({ id, index }) => {
 	return (
 		<QuestionLayout survey={survey} index={index} question={question}>
 			<div className='flex-row no-wrap m-bottom-5 m-top-10'>
-				<NumberInput className='align-middle' defaultValue={null} onChange={(val) => null} />
+				<NumberInput
+					className='align-middle'
+					defaultValue={null}
+					onChange={(value) => {
+						addResponseValue({
+							survey,
+							value,
+							question,
+							option: null,
+						});
+					}}
+				/>
 			</div>
 		</QuestionLayout>
 	);

@@ -7,7 +7,7 @@ import { useContext } from 'react';
 import { useRouter } from 'next/router';
 import { AddOption } from './AddOption';
 import { QuestionLayout } from './QuestionLayout';
-import { pageIsEditor } from 'lib/utils';
+import { addResponseValue, getId, pageIsEditor } from 'lib/utils';
 
 export const MultiChoice = ({ id, index }) => {
 	const { app, forceRender } = useContext(AppContext);
@@ -27,7 +27,18 @@ export const MultiChoice = ({ id, index }) => {
 			{question.options.map((opt, i) => {
 				return (
 					<div key={i + '' + opt.orderId} className='flex-row no-wrap m-bottom-5 m-top-10'>
-						<CheckboxInput name={question._id.toString()} className='align-middle m-right-7 m-top-6' />
+						<CheckboxInput
+							name={question._id.toString()}
+							className='align-middle m-right-7 m-top-6'
+							onChange={(value) => {
+								addResponseValue({
+									survey,
+									value,
+									question,
+									option: opt,
+								});
+							}}
+						/>
 						<TextInput
 							readOnly={!isEditor}
 							className={`align-middle ${isEditor ? '' : 'text-mode'}`}

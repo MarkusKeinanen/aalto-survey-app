@@ -5,10 +5,12 @@ import { SearchBar } from './SearchBar';
 import { useRouter } from 'next/router';
 import { Breadcrumb } from './Breadcrumb';
 import { stripStartAndEndSlashes } from 'lib/utils';
+import { useState } from 'react';
 
 export const Navbar = () => {
 	const router = useRouter();
 	const { surveyid } = router.query;
+	const [showProfileOptions, setShowProfileOptions] = useState(false);
 
 	let urlArray = stripStartAndEndSlashes(router.pathname).split('/');
 
@@ -25,9 +27,14 @@ export const Navbar = () => {
 			<Breadcrumb />
 			{urlArray.length == 1 && <SearchBar />}
 
-			<div className='btn btn-blue profile-circle'>
+			<div
+				className='btn btn-blue profile-circle'
+				onClick={() => {
+					setShowProfileOptions;
+				}}
+			>
 				<div className='center-center' style={{ marginTop: '-1px' }}>
-					MK
+					A
 				</div>
 			</div>
 		</div>

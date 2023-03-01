@@ -7,6 +7,7 @@ import { useContext, useState } from 'react';
 import { useRouter } from 'next/router';
 import { AddOption } from './AddOption';
 import { QuestionLayout } from './QuestionLayout';
+import { addResponseValue, getId } from 'lib/utils';
 
 export const StarAnswer = ({ id, index }) => {
 	const { app, forceRender } = useContext(AppContext);
@@ -34,6 +35,12 @@ export const StarAnswer = ({ id, index }) => {
 							}}
 							onClick={() => {
 								setSelectedStar(num);
+								addResponseValue({
+									survey,
+									value: num,
+									question,
+									option: null,
+								});
 							}}
 							key={'star' + num}
 						>

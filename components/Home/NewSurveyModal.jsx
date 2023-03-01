@@ -30,6 +30,7 @@ export const NewSurveyModal = ({ onClose }) => {
 			_id: newId,
 			name: state.newSurveyName,
 			questions: {},
+			responses: {},
 			backgroundColor: getRandomPastelColor(),
 		};
 		onClose();

@@ -29,6 +29,25 @@ a.link-blue:focus {
 	color: $link-blue-darker;
 }
 
+table {
+	border-collapse: collapse;
+	tr,
+	td {
+		border: 1px solid lightgray;
+	}
+	td {
+		padding: 5px 8px 5px 8px;
+	}
+	tbody td {
+		background-color: white;
+	}
+	thead td,
+	td::before {
+		background: rgb(236, 239, 245);
+		font-weight: 600;
+	}
+}
+
 * {
 	box-sizing: border-box;
 }

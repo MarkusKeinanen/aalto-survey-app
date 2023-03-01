@@ -57,8 +57,16 @@ const App = ({ Component, pageProps }) => {
 
 	return (
 		<AppContext.Provider value={{ app: app.current, forceRender: forceAppStateUpdate }}>
-			<Component {...pageProps} />
-			<Toaster />
+			{app.screen?.width < 1000 ? (
+				<div style={{ background: 'white', height: '100vh', width: '100vw', position: 'fixed', left: 0, top: 0 }}>
+					<div className='center-center font-weight-700 font-size-16'>THIS APP IS NOT YET OPTIMIZED FOR MOBILE SCREEN SIZES</div>
+				</div>
+			) : (
+				<>
+					<Component {...pageProps} />
+					<Toaster />
+				</>
+			)}
 		</AppContext.Provider>
 	);
 };

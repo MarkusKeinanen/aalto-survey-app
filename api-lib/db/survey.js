@@ -1,6 +1,8 @@
 import cloneDeep from 'lodash/cloneDeep';
 import { ObjectId } from 'mongodb';
 
+const surveyFields = ['name', 'questions', 'backgroundColor'];
+
 export const findSurveyById = async (db, _id) => {
 	const res = await db.collection('surveys').findOne({ _id: ObjectId(_id) });
 	return res;
@@ -22,11 +24,12 @@ export const findSurveysByUserId = async (db, user_id) => {
 };
 
 export const insertSurvey = async (db, user_id, { survey }) => {
-	let surveyBody = {
-		...survey,
-		user_id: new ObjectId(user_id),
-	};
-	delete surveyBody._id;
+	let surveyBody = {};
+	for (const key of surveyFields) {
+		surveyBody[key] = survey[key];
+	}
+	surveyBody.user_id = new ObjectId(user_id);
+	surveyBody.createdAt = new Date().toISOString();
 	surveyBody = ensureProperQuestionIds(surveyBody);
 
 	const { insertedId } = await db.collection('surveys').insertOne(surveyBody);
@@ -35,24 +38,23 @@ export const insertSurvey = async (db, user_id, { survey }) => {
 };
 
 export const updateSurvey = async (db, { survey }) => {
-	let setOptions = {};
-	for (const key in survey) {
-		setOptions[key] = survey[key];
+	let updateBody = {};
+	for (const key of surveyFields) {
+		updateBody[key] = survey[key];
 	}
-	delete setOptions._id;
-	delete setOptions.user_id;
-	setOptions = ensureProperQuestionIds(setOptions);
+	updateBody = ensureProperQuestionIds(updateBody);
+	updateBody.updatedAt = new Date().toISOString();
 
 	const { upsertedId } = await db.collection('surveys').updateOne(
 		{ _id: ObjectId(survey._id) },
 		{
-			$set: setOptions,
+			$set: updateBody,
 		}
 	);
 	const result = {
 		_id: upsertedId,
 		...survey,
-		...setOptions,
+		...updateBody,
 	};
 	return result;
 };

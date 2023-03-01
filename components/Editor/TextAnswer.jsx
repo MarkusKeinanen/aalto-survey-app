@@ -5,7 +5,7 @@ import { TextInput } from 'components/General/TextInput';
 import { AppContext } from 'pages/_app';
 import { useContext } from 'react';
 import { useRouter } from 'next/router';
-import { getId, pageIsEditor, pageIsPreview } from 'lib/utils';
+import { addResponseValue, getId, pageIsEditor, pageIsPreview } from 'lib/utils';
 import { TextArea } from 'components/General/TextArea';
 import { AddOption } from './AddOption';
 import { QuestionLayout } from './QuestionLayout';
@@ -28,7 +28,14 @@ export const TextAnswer = ({ id, index }) => {
 					placeholder={isEditor ? '(Answer is written here by respondee)' : 'Write your answer here'}
 					defaultValue={null}
 					noResize={isEditor}
-					onChange={(val) => null}
+					onChange={(value) => {
+						addResponseValue({
+							survey,
+							value,
+							question,
+							option: null,
+						});
+					}}
 				/>
 			</div>
 		</QuestionLayout>

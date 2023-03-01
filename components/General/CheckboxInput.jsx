@@ -19,7 +19,7 @@ export const CheckboxInput = React.forwardRef((props, ref) => {
 			title={title || 'Select option'}
 			onChange={(e) => {
 				if (onChange) {
-					onChange(e.target.value);
+					onChange(e.target.checked);
 				}
 			}}
 		/>
