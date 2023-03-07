@@ -1,5 +1,5 @@
-# linkki sovellukseen (muutama toiminto rikki live-versiossa, paikallisympäristössä kaikki toimii)
-
+# linkki sovellukseen
+(muutama toiminto rikki live-versiossa, paikallisesti ajaessa kaikki toimii)
 https://aalto-survey-project-6vtkblux7-markuskeinanen.vercel.app/
 
 
