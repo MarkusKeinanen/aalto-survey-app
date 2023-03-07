@@ -1,14 +1,14 @@
-# linkki sovellukseen
+## Linkki sovellukseen
 (muutama toiminto rikki live-versiossa, paikallisesti ajaessa kaikki toimii)
 https://aalto-survey-project-6vtkblux7-markuskeinanen.vercel.app/
 
 
-# mitä sovellus tekee?
+## Mitä sovellus tekee?
 
 Sovelluksella voi luoda käyttäjän ja kirjautua sisään/kirjautua ulos, luoda kyselyjä eri vastaustyypeillä, tallentaa ja poistaa niitä, esikatsella kyselyitä, vastata kyselyihin, ja tutkia kyselyiden vastauksia. 
 
 
-# työaikakirjanpito
+## Työaikakirjanpito
 
 |     aika    | aika | mitä tein                                                                                                         |
 | :---------: | :--- | :---------------------------------------------------------------------------------------------------------------- |
