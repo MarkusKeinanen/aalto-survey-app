@@ -1,5 +1,5 @@
-import { findUserById } from 'api-lib/db';
-import { database } from 'api-lib/middlewares';
+import { findUserById } from 'api-lib/db/user';
+import { database } from 'api-lib/middleware/database';
 import { ncOpts } from 'api-lib/ncOpts';
 import nextConnect from 'next-connect';
 
