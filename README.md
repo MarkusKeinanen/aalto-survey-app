@@ -39,4 +39,4 @@ npm install
 npm run dev
 ```
 
-Avaa [http://localhost:3000](http://localhost:3000) selaimessa
+5. Avaa [http://localhost:3000](http://localhost:3000) selaimessa
