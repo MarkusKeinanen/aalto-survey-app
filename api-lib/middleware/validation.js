@@ -11,8 +11,8 @@ export const validateNewUser = async (req, res, next) => {
 	if (!isEmail(email)) {
 		errors.push('The email must be in format name@domain.xxx.');
 	}
-	if (isEmpty(password) || password.length < 8) {
-		errors.push('The password must be 8 characters or longer.');
+	if (isEmpty(password) || password.length < 6) {
+		errors.push('The password must be 6 characters or longer.');
 	}
 	if (errors.length > 0) {
 		return res.status(200).json({

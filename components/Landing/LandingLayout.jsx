@@ -1,9 +1,11 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { AppContext } from 'pages/_app';
 import { Spinner } from '../General/Spinner';
 import landingBackgroundSVG from 'svgJSX/landingBackground';
+import { getCookie } from 'lib/utils';
+import { useOnMount } from 'hooks/useOnMount';
 
 export const LandingLayout = ({ children }) => {
 	const { app } = useContext(AppContext);
@@ -26,9 +28,6 @@ export const LandingLayout = ({ children }) => {
 						</Link>
 					</div>
 					<div className='top-right align-middle text-left font-weight-600'>
-						<Link href='/surveys'>
-							<a className='top-right-item'>My surveys</a>
-						</Link>
 						<Link href='/signup'>
 							<button className='btn signup-link shadow-sm btn-blue animate-colors-75-ms top-right-item'>Sign up</button>
 						</Link>

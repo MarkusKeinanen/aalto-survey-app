@@ -18,7 +18,7 @@ app.post(passport.authenticate('local'), (req, res) => {
 
 app.delete(async (req, res) => {
 	await req.session.destroy();
-	res.status(204).end();
+	res.status(200).json({ text: 'Successfully logged out', user: req.user });
 });
 
 export default app;

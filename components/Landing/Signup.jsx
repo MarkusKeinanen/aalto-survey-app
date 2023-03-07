@@ -58,7 +58,7 @@ export const Signup = () => {
 				},
 			});
 			if (res2) {
-				toast.success('Your account has been created and you were logged in.');
+				toast.success('Your account has been created and you were logged in.', { duration: 6000 });
 				router.push('/surveys');
 			}
 		}

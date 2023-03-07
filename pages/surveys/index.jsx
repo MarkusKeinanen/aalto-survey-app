@@ -41,7 +41,6 @@ export default function () {
 							) : (
 								Object.keys(app.surveys).map((_id) => {
 									const survey = app.surveys[_id];
-									console.log(survey);
 									return (
 										<div
 											key={survey._id}

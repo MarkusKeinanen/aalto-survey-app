@@ -1,16 +1,31 @@
 import Icon from '@mdi/react';
-import { mdiHome } from '@mdi/js';
+import { mdiHome, mdiLogout } from '@mdi/js';
 import Link from 'next/link';
 import { SearchBar } from './SearchBar';
 import { useRouter } from 'next/router';
 import { Breadcrumb } from './Breadcrumb';
 import { stripStartAndEndSlashes } from 'lib/utils';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useOnClickOutside } from 'hooks/useOnClickOutside';
+import { request } from 'lib/api';
 
 export const Navbar = () => {
 	const router = useRouter();
 	const { surveyid } = router.query;
+	const profileOptionsRef = useRef();
 	const [showProfileOptions, setShowProfileOptions] = useState(false);
+
+	useOnClickOutside(profileOptionsRef, () => {
+		setShowProfileOptions(false);
+	});
+
+	const onLogout = async () => {
+		request({
+			url: '/api/auth',
+			method: 'DELETE',
+		});
+		window.location.href = '/';
+	};
 
 	let urlArray = stripStartAndEndSlashes(router.pathname).split('/');
 
@@ -28,14 +43,22 @@ export const Navbar = () => {
 			{urlArray.length == 1 && <SearchBar />}
 
 			<div
-				className='btn btn-blue profile-circle'
+				className='btn btn-blue profile-circle p-rel'
 				onClick={() => {
-					setShowProfileOptions;
+					setShowProfileOptions(true);
 				}}
 			>
 				<div className='center-center' style={{ marginTop: '-1px' }}>
 					A
 				</div>
+				{showProfileOptions && (
+					<div className='profile-options' ref={profileOptionsRef}>
+						<div className='profile-option' onClick={onLogout}>
+							<Icon className='d-in-bl align-middle m-right-5' path={mdiLogout} size={0.9} />
+							<div className='d-in-bl align-middle'>Log out</div>
+						</div>
+					</div>
+				)}
 			</div>
 		</div>
 	);
