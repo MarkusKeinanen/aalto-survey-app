@@ -9,19 +9,24 @@ import { fetchResponses } from 'lib/responsesApi';
 import { formatDateTime } from 'lib/utils';
 import { useRouter } from 'next/router';
 import { AppContext } from 'pages/_app';
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 
 export default function Results() {
 	const { app, forceRender } = useContext(AppContext);
 	const router = useRouter();
 	const { surveyid } = router.query;
+	const fetchDone = useRef(false);
 
 	let survey = app.surveys ? app.surveys[surveyid] : null;
 
+	let surveyIsNew = survey?._id.length < 10;
+
 	useEffect(() => {
+		if (!app.isLoggedIn || surveyIsNew) return;
 		const fn = async () => {
 			app.responseData = app.responseData || {};
-			if (survey && !app.responseData[survey._id]) {
+			if (survey && !app.responseData[survey._id] && !fetchDone.current) {
+				fetchDone.current = true;
 				const res = await fetchResponses(survey._id);
 				if (res && res.responses) {
 					app.responseData[survey._id] = res.responses;
@@ -33,6 +38,22 @@ export default function Results() {
 		};
 		fn();
 	});
+
+	if (!survey) {
+		return (
+			<Layout>
+				<div className='m-top-30'>A survey with this id ({surveyid}) does not exist.</div>
+			</Layout>
+		);
+	}
+
+	if (surveyIsNew) {
+		return (
+			<Layout>
+				<div className='m-top-30'>This survey must be saved before it can gather responses.</div>
+			</Layout>
+		);
+	}
 
 	const responses = app.responseData ? app.responseData[survey._id] : null;
 
@@ -86,7 +107,7 @@ export default function Results() {
 											</thead>
 											<tbody>
 												{responses.map((response) => {
-													const values = response.values[question_id];
+													const values = response.values?.[question_id];
 
 													return (
 														<tr key={response._id}>
@@ -95,16 +116,20 @@ export default function Results() {
 															{(function () {
 																if (question.type == QUESTION_TYPE.SINGLE_CHOICE || question.type == QUESTION_TYPE.MULTIPLE_CHOICE) {
 																	return question.options.map((opt) => {
-																		const responseOption = values.find((v) => v.option_id == opt._id);
-																		return <td key={`${response._id}${opt._id}`}>{responseOption?.value || ''}</td>;
+																		const responseOption = values ? values.find((v) => v.option_id == opt._id) : null;
+																		return <td key={`${response._id}${opt._id}`}>{responseOption ? '✔' : ''}</td>;
 																	});
 																} else if (question.type == QUESTION_TYPE.TEXT_ANSWER) {
+																	if (!values) return <td></td>;
 																	return <td>{values[0].value}</td>;
 																} else if (question.type == QUESTION_TYPE.NUMBER_ANSWER) {
+																	if (!values) return <td></td>;
 																	return <td>{values[0].value}</td>;
 																} else if (question.type == QUESTION_TYPE.STAR_ANSWER) {
+																	if (!values) return <td></td>;
 																	return <td>{values[0].value}</td>;
 																} else if (question.type == QUESTION_TYPE.RANGE_ANSWER) {
+																	if (!values) return <td></td>;
 																	return <td>{values[0].value}</td>;
 																}
 															})()}
@@ -115,19 +140,6 @@ export default function Results() {
 										</table>
 									</div>
 								);
-								// if (question.type == QUESTION_TYPE.SINGLE_CHOICE) {
-								// 	//pass
-								// } else if (question.type == QUESTION_TYPE.MULTIPLE_CHOICE) {
-								// 	//pass
-								// } else if (question.type == QUESTION_TYPE.TEXT_ANSWER) {
-								// 	//pass
-								// } else if (question.type == QUESTION_TYPE.NUMBER_ANSWER) {
-								// 	//pass
-								// } else if (question.type == QUESTION_TYPE.STAR_ANSWER) {
-								// 	//pass
-								// } else if (question.type == QUESTION_TYPE.RANGE_ANSWER) {
-								// 	//pass
-								// }
 							})
 						)}
 					</div>

@@ -21,6 +21,7 @@ export const useAppStorage = (requiredFields) => {
 	useIfChanged(
 		requiredFields,
 		async () => {
+			if (!app.isLoggedIn) return;
 			const promises = requiredFields.map((key) => {
 				return fetchFn(key);
 			});

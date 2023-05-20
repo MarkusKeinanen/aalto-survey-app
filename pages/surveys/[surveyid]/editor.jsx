@@ -39,6 +39,7 @@ export default function Editor() {
 		let isNewSurvey = isNew(survey);
 		let oldSurveyId = survey._id;
 		if (isNewSurvey) {
+			survey.active = true;
 			res = await createSurvey(survey);
 		} else {
 			res = await saveSurvey(survey);

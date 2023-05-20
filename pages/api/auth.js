@@ -8,6 +8,10 @@ const app = nextConnect(ncOpts);
 
 app.use(database, ...auths);
 
+app.get(...auths, async (req, res) => {
+	return res.status(200).json({ user: req.user });
+});
+
 app.post(passport.authenticate('local'), (req, res) => {
 	if (!req.user) {
 		res.status(401).end();

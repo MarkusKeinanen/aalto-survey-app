@@ -36,13 +36,14 @@ export const Login = () => {
 				email: loginState.email,
 				password: loginState.password,
 			},
+			noErrorMessage: true,
 		});
 		if (res) {
 			toast.success('You have been logged in.');
+			router.push('/surveys');
 		} else {
 			toast.error('Wrong email or password.');
 		}
-		router.push('/surveys');
 		setIsLoading(false);
 	};
 

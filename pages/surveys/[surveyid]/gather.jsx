@@ -5,14 +5,37 @@ import Layout from 'components/General/Layout';
 import { useOnMount } from 'hooks/useOnMount';
 import { copyTextToClipboard } from 'lib/utils';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { AppContext } from 'pages/_app';
+import { useContext, useState } from 'react';
 
 export default function Gather() {
+	const { app, forceRender } = useContext(AppContext);
 	const [link, setLink] = useState('');
+	const router = useRouter();
+	const { surveyid } = router.query;
 
 	useOnMount(() => {
-		setLink(`${window.location.origin}/6405063dd94e3e076ca6c8cc`);
+		setLink(`${window.location.origin}/${surveyid}`);
 	});
+
+	let survey = app.surveys ? app.surveys[surveyid] : null;
+	let surveyIsNew = survey?._id.length < 10;
+
+	if (!survey) {
+		return (
+			<Layout>
+				<div className='m-top-30'>A survey with this id ({surveyid}) does not exist.</div>
+			</Layout>
+		);
+	}
+
+	if (surveyIsNew) {
+		return (
+			<Layout>
+				<div className='m-top-30'>This survey must be saved before it can gather responses.</div>
+			</Layout>
+		);
+	}
 
 	return (
 		<Layout>

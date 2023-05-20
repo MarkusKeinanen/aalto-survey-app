@@ -15,6 +15,7 @@ export default function ResponseForm() {
 	const router = useRouter();
 	const [sending, setSending] = useState(false);
 	const submitted = useRef(false);
+	const invalid = useRef(false);
 	const { surveyid } = router.query;
 
 	useOnMount(async () => {
@@ -23,11 +24,13 @@ export default function ResponseForm() {
 			app.surveys = {
 				[surveyRes.survey._id]: surveyRes.survey,
 			};
-			forceRender();
+		} else {
+			invalid.current = true;
 		}
+		forceRender();
 	});
 
-	let survey = app.surveys ? app.surveys[surveyid] : null;
+	let survey = invalid.current ? null : app.surveys ? app.surveys[surveyid] : null;
 
 	const submitResponse = async () => {
 		let responseBody = {
@@ -57,44 +60,56 @@ export default function ResponseForm() {
 							<div className='landing-background-svg'>{landingBackgroundSVG}</div>
 							<div className='text-center'>
 								<div className='survey-form respond-form m-top-20 shadow-sm'>
-									{sending ? (
-										<Spinner text='Sending response...' />
-									) : (
-										<>
-											{submitted.current ? (
-												<div>
-													<div className='font-weight-700 font-size-16 m-bottom-10'>Thank you</div>
-													<div>Your response has been submitted. You can now close this window.</div>
-												</div>
-											) : (
+									{(function () {
+										if (invalid.current) {
+											return <div>No survey was found with this id ({surveyid})</div>;
+										} else if (!survey.active) {
+											return <div>This survey is not currently active.</div>;
+										} else {
+											return (
 												<>
-													{!survey || Object.keys(survey.questions).length == 0
-														? null
-														: (function () {
-																let questions = Object.keys(survey.questions).map((id) => survey.questions[id]);
-																questions.sort((a, b) => {
-																	return a.orderId - b.orderId;
-																});
+													{sending ? (
+														<Spinner text='Sending response...' />
+													) : (
+														<>
+															{submitted.current ? (
+																<div>
+																	<div className='font-weight-700 font-size-16 m-bottom-10'>Thank you</div>
+																	<div>Your response has been submitted. You can now close this window.</div>
+																</div>
+															) : (
+																<>
+																	{!survey || Object.keys(survey.questions).length == 0
+																		? null
+																		: (function () {
+																				let questions = Object.keys(survey.questions).map((id) => survey.questions[id]);
+																				questions.sort((a, b) => {
+																					return a.orderId - b.orderId;
+																				});
 
-																return questions.map((question, i) => {
-																	let Element = QUESTION_ELEMENT[question.type];
-																	return (
-																		<div key={question._id} className={`${i == 0 ? 'm-top-0' : 'm-top-20'} m-bottom-30`}>
-																			<Element id={question._id} index={i + 1} />
-																		</div>
-																	);
-																});
-														  })()}
+																				return questions.map((question, i) => {
+																					let Element = QUESTION_ELEMENT[question.type];
+																					return (
+																						<div key={question._id} className={`${i == 0 ? 'm-top-0' : 'm-top-20'} m-bottom-30`}>
+																							<Element id={question._id} index={i + 1} />
+																						</div>
+																					);
+																				});
+																		  })()}
 
-													<div className='text-right m-top-15'>
-														<button className='btn btn-blue shadow-xs icon-btn m-right-5' onClick={submitResponse}>
-															Send response <Icon className='align-middle' style={{ marginLeft: '5px' }} path={mdiEmailFastOutline} size={0.9} />
-														</button>
-													</div>
+																	<div className='text-right m-top-15'>
+																		<button className='btn btn-blue shadow-xs icon-btn m-right-5' onClick={submitResponse}>
+																			Send response <Icon className='align-middle' style={{ marginLeft: '5px' }} path={mdiEmailFastOutline} size={0.9} />
+																		</button>
+																	</div>
+																</>
+															)}
+														</>
+													)}
 												</>
-											)}
-										</>
-									)}
+											);
+										}
+									})()}
 								</div>
 							</div>
 						</div>

@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 export const SwitchToggle = (props) => {
-	const { id, defaultValue } = props;
+	const { id, defaultValue, onChange } = props;
 	const [selected, setSelected] = useState(!!defaultValue);
 
 	return (
@@ -11,6 +11,7 @@ export const SwitchToggle = (props) => {
 				checked={selected}
 				onChange={(e) => {
 					setSelected(e.target.checked);
+					onChange(e.target.checked);
 				}}
 				id={id}
 				type='checkbox'

@@ -1,5 +1,5 @@
 import Icon from '@mdi/react';
-import { mdiHome, mdiLogout } from '@mdi/js';
+import { mdiAccountOutline, mdiHome, mdiLogout } from '@mdi/js';
 import Link from 'next/link';
 import { SearchBar } from './SearchBar';
 import { useRouter } from 'next/router';
@@ -49,7 +49,7 @@ export const Navbar = () => {
 				}}
 			>
 				<div className='center-center' style={{ marginTop: '-1px' }}>
-					A
+					<Icon className='p-rel' path={mdiAccountOutline} size={1.0} style={{ marginBottom: '-5px' }} />
 				</div>
 				{showProfileOptions && (
 					<div className='profile-options' ref={profileOptionsRef}>
