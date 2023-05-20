@@ -16,7 +16,7 @@ import { defaultSignupState } from 'pages/signup';
 import { defaultLoginState } from 'pages/login';
 import { defaultSurveysState } from 'pages/surveys';
 import cloneDeep from 'lodash/cloneDeep';
-import Router from 'next/router';
+import Router, { useRouter } from 'next/router';
 import { useScreenSize } from 'hooks/useScreenSize';
 
 const initialAppState = {
@@ -33,8 +33,10 @@ export const AppContext = createContext();
 const App = ({ Component, pageProps }) => {
 	const app = useRef(cloneDeep(initialAppState));
 	const [, forceAppStateUpdate] = useReducer((x) => x + 1, 0);
+	const init = useRef(false);
 
 	useScreenSize({ app, forceRender: forceAppStateUpdate });
+	const router = useRouter();
 
 	useEffect(() => {
 		const start = () => {
@@ -55,6 +57,11 @@ const App = ({ Component, pageProps }) => {
 		};
 	}, []);
 
+	useEffect(() => {
+		init.current = true;
+		forceAppStateUpdate();
+	}, []);
+
 	return (
 		<AppContext.Provider value={{ app: app.current, forceRender: forceAppStateUpdate }}>
 			{app.screen?.width < 1000 ? (
@@ -63,8 +70,12 @@ const App = ({ Component, pageProps }) => {
 				</div>
 			) : (
 				<>
-					<Component {...pageProps} />
-					<Toaster />
+					{init.current ? (
+						<>
+							<Component {...pageProps} />
+							<Toaster />
+						</>
+					) : null}
 				</>
 			)}
 		</AppContext.Provider>

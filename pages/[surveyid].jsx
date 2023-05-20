@@ -18,8 +18,6 @@ export default function ResponseForm() {
 	const invalid = useRef(false);
 	const { surveyid } = router.query;
 
-	console.log({ router });
-
 	useOnMount(async () => {
 		const surveyRes = await fetchSurvey(surveyid);
 		if (surveyRes && surveyRes.survey) {
