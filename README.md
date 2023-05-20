@@ -1,4 +1,6 @@
-# työaikakirjanpito
+## Linkki sovellukseen
+
+https://aalto-survey-project-6vtkblux7-markuskeinanen.vercel.app/
 
 |     aika      | aika | mitä tein                                                                                                         |
 | :-----------: | :--- | :---------------------------------------------------------------------------------------------------------------- |
@@ -13,9 +15,9 @@
 |  2.3. - 7.3.  | 5h   | Ykkösversion viimeistelyt, logout-toiminto, refakturointi, testaus, deploy, turhien koodien poisto                |
 | 20.5. - 21.5. | 8h   | Katselmoinnin asioiden korjaus                                                                                    |
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Mitä sovellus tekee?
 
-## How to run the project locally
+Sovelluksella voi luoda käyttäjän ja kirjautua sisään/kirjautua ulos, luoda kyselyjä eri vastaustyypeillä, tallentaa ja poistaa niitä, esikatsella kyselyitä, vastata kyselyihin, ja tutkia kyselyiden vastauksia.
 
 1. clone the repo
 2. navigate to project folder root
@@ -34,10 +36,10 @@ where <PASSWORD> and <SESSION_SECRET> are replaced with real information
 npm install
 ```
 
-4. run:
+4. Aja terminaalissa komento:
 
 ```bash
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Avaa [http://localhost:3000](http://localhost:3000) selaimessa
