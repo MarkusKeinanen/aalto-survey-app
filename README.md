@@ -1,6 +1,6 @@
 ## Linkki sovellukseen
 
-https://aalto-survey-project-6vtkblux7-markuskeinanen.vercel.app/
+https://aalto-survey-project.vercel.app/
 
 |     aika      | aika | mitä tein                                                                                                         |
 | :-----------: | :--- | :---------------------------------------------------------------------------------------------------------------- |
