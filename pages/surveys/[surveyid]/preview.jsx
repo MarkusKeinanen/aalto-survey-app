@@ -13,8 +13,9 @@ export default function Preview() {
 	const router = useRouter();
 	const { surveyid } = router.query;
 
+	console.log({ app });
+
 	useOnMount(() => {
-		if (!app.isLoggedIn) return;
 		let storedSurvey = localStorage.getItem('preview-survey');
 		if (storedSurvey) {
 			storedSurvey = JSON.parse(storedSurvey);
