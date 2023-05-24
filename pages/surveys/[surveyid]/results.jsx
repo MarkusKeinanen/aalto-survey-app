@@ -20,6 +20,7 @@ export default function Results() {
 	let survey = app.surveys ? app.surveys[surveyid] : null;
 
 	let surveyIsNew = survey?._id.length < 10;
+	console.log(survey?._id);
 
 	useEffect(() => {
 		if (!app.isLoggedIn || surveyIsNew) return;
